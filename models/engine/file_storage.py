@@ -43,7 +43,7 @@ class FileStorage:
         """
         """
         jsondb = json.dumps(self.__objects)
-        f = open(self.__file_path,'w') 
+        f = open(self.__file_path,'w+') 
         f.write(jsondb) 
         f.close()  
     
