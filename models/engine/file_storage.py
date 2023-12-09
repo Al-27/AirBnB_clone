@@ -12,7 +12,7 @@ class FileStorage:
     """
     
     """
-    __file_path = f"{pathlib.Path(__file__).parent}/../../database/db.json"
+    __file_path = os.path.abspath(f"{pathlib.Path(__file__).parent}/../../database/db.json")
     __objects = {}
     ObjKey = "{}.{}"
     
