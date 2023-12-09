@@ -4,17 +4,48 @@ from models.base_model import BaseModel
 
 import cmd
 
-classes =  ["BaseModel", "User", "Place","City"]
+classes =  ["BaseModel", "User", "Place","City", "Amenity", "Review", "State"]
 
 def GetClass(classname):
+    """
+    return the Class of the specified classname from the module
+    """
     import importlib
     module = importlib.import_module(f"models.{'base_model' if classname == 'BaseModel' else classname.lower()}")
     ModelClass = getattr(module, classname)
     return ModelClass
 
+def splitstr(str):
+    """
+        properly strip a string that has quotes into a string
+    """
+    lst=[]
+    isjoin=False
+    joined=[]
+    
+    for i in str.split():
+        if '"' in i or isjoin:
+            joined.append(i)
+        
+        if i[0] == '"' and not isjoin:
+            isjoin=True
+        elif i[-1] == '"':
+            isjoin=False
+            newstr=" ".join(joined)
+            lst.append(newstr.strip('" '))
+        elif not isjoin:
+            lst.append(i)
+    
+    return lst
 
 def check_invalid(str,id=False, attr=False):
-    
+    """
+        pass a list of commands(str) then check if
+        class name valid
+        class exists
+        if @id is true then check if user passed an id and the instance with id exists
+        if @attr is true then check if user passed attribute name&value and if each of the two is valid 
+    """
     try:
         if len(str) == 0:
             raise TypeError()
@@ -63,6 +94,9 @@ def check_invalid(str,id=False, attr=False):
     return True
 
 def check_instance_exists(id):
+    """
+    check if @id exists in the database
+    """
     Objs = storage.all()
     
     try:
@@ -75,21 +109,46 @@ def check_instance_exists(id):
     
 
 class HBNBCommand(cmd.Cmd):
-    cmd.Cmd.prompt = "(hbh)"
+    """
+    the console
+    """
+    cmd.Cmd.prompt = "(hbnb)"
     
-    obj = [BaseModel()]
     def cmdloop(self):
+        """
+        """
         super().cmdloop()
     
+    def onecmd(self,str):
+        """
+        ...tba
+        """
+        print( type(str) )
+        str=str.split()
+        print(str)
+        super().onecmd(str)
     
     def do_EOF(self, arg):
+        """
+        EOF
+            exit the console, ctrl+D or simply type EOF.
+        """
         print("")
         return True
         
     def do_quit(self, arg):
+        """
+        quit
+            exit the console.
+        """
         return True
     
     def do_create(self, arg):
+        """
+        create
+            create a new instance of type <class name>:
+                create <class name>
+        """
         arg = arg.strip()
         
         args = arg.split(" ")
@@ -103,6 +162,11 @@ class HBNBCommand(cmd.Cmd):
 
     
     def do_show(self, arg):
+        """
+        show
+            prints <class name>'s instance with the passed <id> (if it exists):
+            show <class name> <id>
+        """
         arg = arg.strip()
             
         args = arg.split(" ")
@@ -119,6 +183,11 @@ class HBNBCommand(cmd.Cmd):
         print(mclass)
         
     def do_all(self, arg):
+        """
+        all
+            prints all instances in the database, or those of type of <class name> ([] indicates argument is optional):
+            all [<class name>]
+        """
         arg = arg.strip()
             
         args = arg.split(" ")
@@ -133,6 +202,12 @@ class HBNBCommand(cmd.Cmd):
         print(strings)
             
     def do_update(self, arg):
+        """
+        update
+            update an instance attribute: 
+            update <class name> <id> <attribute name> "<attribute value>"
+                !: use quotation marks if attribute value has spaces in it
+        """
         arg = arg.strip()
             
         args = arg.split(" ")
@@ -151,6 +226,11 @@ class HBNBCommand(cmd.Cmd):
         bclass.save()
     
     def do_destroy(self, arg):
+        """
+        destroy
+            destroy an instance: 
+            destroy <class name> <id>
+        """
         arg = arg.strip()
             
         args = arg.split(" ")

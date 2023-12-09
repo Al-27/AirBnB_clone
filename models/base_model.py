@@ -8,8 +8,13 @@ from models import storage
 import json
 
 class BaseModel:
+    """
+    Base Class
+    """
     
     def __init__(self,*args,**kwargs):
+        """
+        """
         if kwargs != None and len(kwargs) > 0:
             for k,v in kwargs.items():
                 if k != "__class__":
@@ -24,6 +29,9 @@ class BaseModel:
          
                     
     def save(self):
+        """
+            save instance
+        """
         self.updated_at = datetime.now()
         selfID = f"{self.__class__.__name__}.{self.id}" 
         objs = storage.all()
@@ -34,6 +42,8 @@ class BaseModel:
         storage.save()
     
     def update(self, atrr,val):
+        """
+        """
         try:
             val = json.loads(val)
         except: 
@@ -41,6 +51,8 @@ class BaseModel:
         self.__setattr__(atrr, val)
     
     def to_dict(self):
+        """
+        """
         dict = {}
         dict['__class__'] = self.__class__.__name__
         
@@ -53,5 +65,7 @@ class BaseModel:
         return dict
          
     def __str__(self):
+        """
+        """
         return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
     

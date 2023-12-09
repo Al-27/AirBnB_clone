@@ -6,6 +6,9 @@ from models.base_model import BaseModel
 import json
 
 class Place(BaseModel):
+    """
+        Place
+    """
     
     city_id= ""
     user_id= ""
@@ -20,6 +23,9 @@ class Place(BaseModel):
     amenity_ids= []
     
     def __setattr__(self, attr, val):
+        """
+        
+        """
         try:
             if attr in ["number_rooms","number_bathrooms","max_guest", "price_by_night"] and not isinstance(val, int):
                 raise TypeError(f"{attr} must be an integer")
@@ -31,6 +37,9 @@ class Place(BaseModel):
         super().__setattr__(attr,val)
             
     def update(self, atrr,val):
+        """
+        
+        """
         try:
             val = json.loads(val)
         except: 
