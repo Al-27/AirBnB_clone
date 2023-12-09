@@ -9,5 +9,10 @@ class State(BaseModel):
     """
     
     name=""
-            
+    def __init__(self,*args,**kwargs):
+        """doc
+        """
+        super().__init__(**kwargs)
+        if kwargs == None and len(kwargs) == 0 : 
+            self.name = ""        
         
