@@ -144,7 +144,7 @@ class HBNBCommand(cmd.Cmd):
         """
         arg = arg.strip()
         
-        args = arg.split(" ")
+        args = splitstr(arg)
         if not check_invalid(args):
             return False
         
@@ -162,7 +162,7 @@ class HBNBCommand(cmd.Cmd):
         """
         arg = arg.strip()
             
-        args = arg.split(" ")
+        args = splitstr(arg)
         if not check_invalid(args,True) :
             return False
         
@@ -183,7 +183,7 @@ class HBNBCommand(cmd.Cmd):
         """
         arg = arg.strip()
             
-        args = arg.split(" ")
+        args = splitstr(arg)
         if not check_invalid(args) :
             return False
         Bclass = GetClass(args[0])
@@ -226,7 +226,7 @@ class HBNBCommand(cmd.Cmd):
         """
         arg = arg.strip()
             
-        args = arg.split(" ")
+        args = splitstr(arg)
         if not check_invalid(args,True) :
             return False
             
