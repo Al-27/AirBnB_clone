@@ -11,12 +11,12 @@ $ ./console.py
 ## Data Types (and their properties) 
 
 * BaseModel : attributes ==> `id`, `created_at`, `updated_at` (children) :
- * User      : attributes ==> `first_name`, `last_name`, `email`, `password`.
- * State     : attributes ==> `name`.
- * City      : attributes ==> `name`, `state_id`.
- * Place     : attributes ==> `name`, `description`, `user_id`, `city_id`,`number_rooms`,`number_bathrooms`,`max_guest`, `price_by_night`,`latitude`,`longitude`, `amenity_ids`.
- * Amenity   : attributes ==> `name`.
- * Review    : attributes ==> `place_id`, `user_id`, `text`
+    * User      : attributes ==> `first_name`, `last_name`, `email`, `password`.
+    * State     : attributes ==> `name`.
+    * City      : attributes ==> `name`, `state_id`.
+    * Place     : attributes ==> `name`, `description`, `user_id`, `city_id`,`number_rooms`,`number_bathrooms`,`max_guest`, `price_by_night`,`latitude`,`longitude`, `amenity_ids`.
+    * Amenity   : attributes ==> `name`.
+    * Review    : attributes ==> `place_id`, `user_id`, `text`
 
 
 ## commands
