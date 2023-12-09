@@ -119,14 +119,7 @@ class HBNBCommand(cmd.Cmd):
         """
         super().cmdloop()
     
-    def onecmd(self,str):
-        """
-        ...tba
-        """
-        print( type(str) )
-        str=str.split()
-        print(str)
-        super().onecmd(str)
+    
     
     def do_EOF(self, arg):
         """
@@ -210,7 +203,7 @@ class HBNBCommand(cmd.Cmd):
         """
         arg = arg.strip()
             
-        args = arg.split(" ")
+        args = splitstr(arg)
         if not check_invalid(args,True,True) :
             return False
         
