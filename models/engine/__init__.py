@@ -1,1 +1,1 @@
-from engine import *
+#!/usr/bin/python3

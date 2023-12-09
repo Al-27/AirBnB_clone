@@ -4,6 +4,8 @@
 """
 import uuid
 from datetime import datetime
+from models import storage
+import json
 
 class BaseModel:
     
@@ -11,18 +13,32 @@ class BaseModel:
         if kwargs != None and len(kwargs) > 0:
             for k,v in kwargs.items():
                 if k != "__class__":
-                    if k.__contains__("ted_at"):
+                    if "ted_at" in k:
                         self.__setattr__(k,datetime.fromisoformat(v))
-                    else:    
+                    else:
                         self.__setattr__(k,v)
-                
         else:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
+         
                     
     def save(self):
         self.updated_at = datetime.now()
+        selfID = f"{self.__class__.__name__}.{self.id}" 
+        objs = storage.all()
+        if selfID not in objs.keys() :
+            storage.new(self.to_dict())
+        else:
+            storage.update(self.to_dict(), selfID)
+        storage.save()
+    
+    def update(self, atrr,val):
+        try:
+            val = json.loads(val)
+        except: 
+            val = val
+        self.__setattr__(atrr, val)
     
     def to_dict(self):
         dict = {}
@@ -38,3 +54,4 @@ class BaseModel:
          
     def __str__(self):
         return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
+    
