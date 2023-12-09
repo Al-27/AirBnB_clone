@@ -12,9 +12,18 @@ class FileStorage:
     """
     
     """
-    __file_path = "db.json"
+    __file_path = f"{pathlib.Path(__file__).parent}/../../database/db.json"
     __objects = {}
     ObjKey = "{}.{}"
+    
+    def __init__(self):
+        """
+        """
+        parentdir = pathlib.Path(__file__).parent
+        if not os.path.isdir(os.path.abspath(f"{parentdir}/../../database/")):
+            os.mkdir( os.path.abspath(f"{parentdir}/../../database") )
+        
+        self.__file_path = os.path.abspath(f"{parentdir}/../../database/db.json")
     
     def all(self): 
         """
@@ -25,7 +34,8 @@ class FileStorage:
     def new(self, obj):
         """
         """
-        self.__objects[ "{}.{}".format(obj["__class__"],obj["id"]) ] = obj
+        key = "{}.{}".format(obj["__class__"].strip('"') ,obj["id"].strip('"') )
+        self.__objects[ key ] = obj
     
     
     def update(self, obj, id):
@@ -43,7 +53,7 @@ class FileStorage:
         """
         """
         jsondb = json.dumps(self.__objects)
-        f = open(self.__file_path,'w+') 
+        f = open(self.__file_path,'w') 
         f.write(jsondb) 
         f.close()  
     
