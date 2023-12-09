@@ -47,7 +47,7 @@ def check_invalid(str,id=False, attr=False):
         if @attr is true then check if user passed attribute name&value and if each of the two is valid 
     """
     try:
-        if len(str) == 0:
+        if len(str) == 0 or str[0] == '':
             raise TypeError()
     except Exception as e:
         print("** class name missing **")
