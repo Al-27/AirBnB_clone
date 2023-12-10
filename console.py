@@ -35,6 +35,7 @@ def splitstr(str):
             joined.append(i)
 
         if i[0] == '"' and i[-1] == '"' and not isjoin:
+            newstr = ""
             newstr = " ".join(joined)
             lst.append(newstr.strip('" '))
         elif i[0] == '"' and not isjoin:
@@ -45,6 +46,9 @@ def splitstr(str):
             lst.append(newstr.strip('" '))
         elif not isjoin:
             lst.append(i)
+
+        if not isjoin:
+            joined = []
 
     return lst
 
@@ -165,7 +169,7 @@ class HBNBCommand(cmd.Cmd):
                     argsl = args.split(",")
                     while len(argsl) < 3:
                         argsl.append("")
-                    command = f'{func} {classname} {argsl[0]} {argsl[1]} {args[2]}'
+                    command = f'{func} {classname} {argsl[0]} {argsl[1]} {argsl[2]}'
                     super().onecmd(command)
             else:
                 command = f"{func} {classname} {args}"
