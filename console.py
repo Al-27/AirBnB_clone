@@ -87,9 +87,7 @@ def check_invalid(str, id=False, attr=False):
 
             dummy = GetClass(str[0])()
 
-            if not hasattr(dummy, attribute):
-                return
-            if attribute == "":  # or
+            if attribute == "":  # or not hasattr(dummy,attribute):
                 raise TypeError()
         except Exception as e:
             print("** attribute name missing **")
