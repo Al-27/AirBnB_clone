@@ -1,0 +1,1 @@
+# Web Static, Using only HTML and CSS
